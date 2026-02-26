@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YudaDep - Servers</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ================= GLOBAL ================= */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:#0b1220;
+color:white;
+overflow-x:hidden;
+}
+
+/* ================= NAVBAR ================= */
+nav{
+position:fixed;
+top:0;
+width:100%;
+padding:18px 30px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(5,10,20,0.75);
+backdrop-filter:blur(12px);
+z-index:1000;
+}
+
+.logo{
+font-size:16px;
+font-weight:600;
+color:#58a6ff;
+}
+
+.menu-btn{
+font-size:26px;
+cursor:pointer;
+}
+
+/* ================= HEADER ================= */
+header{
+padding-top:120px;
+text-align:center;
+padding-bottom:50px;
+}
+
+header h1{
+font-size:28px;
+color:#58a6ff;
+margin-bottom:6px;
+}
+
+header p{
+font-size:14px;
+color:#aaa;
+}
+
+/* ================= SERVER SECTION ================= */
+.servers{
+max-width:1100px;
+margin:auto;
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+padding-bottom:80px;
+}
+
+.server-card{
+background:#111b30;
+border-radius:18px;
+overflow:hidden;
+transition:0.4s;
+box-shadow:0 0 25px rgba(0,120,255,0.2);
+}
+
+.server-card:hover{
+transform:translateY(-6px);
+box-shadow:0 0 45px rgba(0,150,255,0.45);
+}
+
+.server-img{
+width:100%;
+height:250px;
+object-fit:cover;
+}
+
+.server-content{
+padding:20px;
+}
+
+.server-content h2{
+font-size:18px;
+color:#58a6ff;
+margin-bottom:6px;
+}
+
+.server-content p{
+font-size:13px;
+color:#aaa;
+margin-bottom:6px;
+}
+
+.owner{
+font-size:12px;
+color:#8cc8ff;
+margin-bottom:14px;
+}
+
+.ip-btn{
+display:inline-block;
+padding:9px 15px;
+background:#2d6df6;
+border-radius:8px;
+font-size:13px;
+cursor:pointer;
+}
+
+.ip-btn:hover{
+background:#58a6ff;
+}
+
+/* ================= FULLSCREEN MENU ================= */
+.full-menu{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.95);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:35px;
+font-size:22px;
+opacity:0;
+visibility:hidden;
+transition:0.3s ease;
+z-index:2000;
+}
+
+.full-menu.active{
+opacity:1;
+visibility:visible;
+}
+
+.full-menu a{
+text-decoration:none;
+color:white;
+transition:0.3s;
+}
+
+.full-menu a:hover{
+color:#58a6ff;
+transform:scale(1.05);
+}
+
+.close-menu{
+position:absolute;
+top:25px;
+right:30px;
+font-size:32px;
+cursor:pointer;
+}
+
+/* ================= MODAL ================= */
+.modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.55);
+backdrop-filter:blur(8px);
+display:flex;
+justify-content:center;
+align-items:center;
+visibility:hidden;
+opacity:0;
+transition:0.3s;
+}
+
+.modal.active{
+visibility:visible;
+opacity:1;
+}
+
+.modal-box{
+background:#0f1b33;
+padding:30px;
+border-radius:18px;
+width:320px;
+text-align:center;
+position:relative;
+box-shadow:0 0 50px rgba(0,140,255,0.5);
+}
+
+.close-circle{
+position:absolute;
+top:12px;
+right:12px;
+font-size:18px;
+cursor:pointer;
+}
+
+.ip-text{
+background:#111b30;
+padding:12px;
+border-radius:10px;
+font-size:13px;
+margin-bottom:18px;
+}
+
+.copy-btn{
+padding:9px 16px;
+background:#2d6df6;
+border-radius:8px;
+cursor:pointer;
+}
+
+.copy-btn:hover{
+background:#58a6ff;
+}
+
+/* LOADER */
+#loader{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:linear-gradient(135deg,#050b16,#0a1f3d,#071427);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+    transition:opacity 0.6s ease, visibility 0.6s;
+}
+
+#loader.hidden{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-content{
+    text-align:center;
+    color:white;
+}
+
+.loader-logo{
+    font-size:32px;
+    letter-spacing:2px;
+    color:#7db8ff;
+    margin-bottom:20px;
+    text-shadow:0 0 20px rgba(77,166,255,0.7);
+}
+
+/* SPINNER */
+.spinner{
+    width:50px;
+    height:50px;
+    border:4px solid rgba(125,184,255,0.2);
+    border-top:4px solid #4da6ff;
+    border-radius:50%;
+    margin:0 auto 25px auto;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    100%{ transform:rotate(360deg); }
+}
+
+/* LOADING BAR */
+.loading-bar{
+    width:220px;
+    height:6px;
+    background:rgba(255,255,255,0.1);
+    border-radius:10px;
+    overflow:hidden;
+    margin:0 auto 12px auto;
+}
+
+.loading-progress{
+    width:0%;
+    height:100%;
+    background:#4da6ff;
+    animation:loadBar 2.5s ease forwards;
+}
+
+@keyframes loadBar{
+    to{ width:100%; }
+}
+
+.loading-text{
+    font-size:13px;
+    opacity:0.7;
+}
+
+</style>
+</head>
+<body>
+<!-- LOADING SCREEN -->
+<div id="loader">
+    <div class="loader-content">
+        <h1 class="loader-logo">YudaSense</h1></h1>
+        <div class="spinner"></div>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+        <p class="loading-text">Loading...</p>
+    </div>
+</div>
+
+<nav>
+<div class="logo">YudaSense</div>
+<div class="menu-btn" onclick="openMenu()">☰</div>
+</nav>
+
+<header>
+<h1>Ini Yang Di Tunggu²</h1></h1>
+<p>Pilih Aja Server nya :v</p>
+</header>
+
+<section class="servers">
+
+<div class="server-card">
+<img src="assets/calmionix.jpg" class="server-img">
+<div class="server-content">
+<h2>Calmionix Smp</h2>
+<p>Survival economy Dan Pastinya ada Costum Item Dll :v.</p>
+<div class="owner">Owner: Calmionix</div>
+<div class="ip-btn" onclick="openModal('Calmionix.fun:19139')">
+Server IP & Port
+</div>
+</div>
+</div>
+
+<div class="server-card">
+<img src="assets/zephyra.jpg" class="server-img">
+<div class="server-content">
+<h2>Zephyra Smp</h2>
+<p>Survival Economy Dan Fitur Fitur menarik :v.</p>
+<div class="owner">Owner: Renzyy</div>
+<div class="ip-btn" onclick="openModal('zephyra.my.id:19133')">
+Server IP & Port
+</div>
+</div>
+</div>
+
+</section>
+
+<!-- FULL MENU -->
+<div class="full-menu" id="menu">
+<div class="close-menu" onclick="closeMenu()">✕</div>
+
+<a href="index.html">🏠 Home</a>
+<a href="servers.html">🎮 Server List</a>
+<a href="rules.html">📜 Rules</a>
+<a href="faq.html">💬 FAQ</a>
+<a href="#">👥 Team</a>
+
+</div>
+
+<!-- IP MODAL -->
+<div class="modal" id="modal">
+<div class="modal-box">
+<div class="close-circle" onclick="closeModal()">✕</div>
+<h3 style="color:#58a6ff;margin-bottom:15px;">Server IP & Port</h3>
+<div class="ip-text" id="ipText"></div>
+<div class="copy-btn" onclick="copyIP()">Copy IP</div>
+</div>
+</div>
+
+<script>
+
+function openMenu(){
+document.getElementById("menu").classList.add("active");
+}
+
+function closeMenu(){
+document.getElementById("menu").classList.remove("active");
+}
+
+function openModal(ip){
+document.getElementById("modal").classList.add("active");
+document.getElementById("ipText").innerText = ip;
+}
+
+function closeModal(){
+document.getElementById("modal").classList.remove("active");
+}
+
+function copyIP(){
+let ip = document.getElementById("ipText").innerText;
+navigator.clipboard.writeText(ip);
+alert("IP berhasil disalin!");
+}
+
+window.addEventListener("load", function(){
+    setTimeout(function(){
+        document.getElementById("loader").classList.add("hidden");
+    }, 2500); // waktu loading (bisa diubah)
+});
+
+</script>
+
+</body>
+</html>

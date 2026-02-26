@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YudaDep - Team</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#050b16;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* NAVBAR */
+.navbar{
+position:fixed;
+top:0;
+width:100%;
+padding:20px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:1000;
+background:rgba(0,0,0,0.3);
+backdrop-filter:blur(10px);
+}
+}
+
+.logo{
+    font-size:16px;
+    font-weight:600;
+    letter-spacing:1px;
+    color:#7db8ff;
+}
+
+.menu-btn{
+    font-size:22px;
+    cursor:pointer;
+}
+
+/* OVERLAY MENU */
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100vh;
+    background:rgba(0,0,0,0.96);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+    transform:translateX(100%);
+    transition:0.4s ease;
+    z-index:2000;
+}
+
+.overlay.active{
+    transform:translateX(0);
+}
+
+.overlay a{
+    text-decoration:none;
+    color:white;
+    font-size:22px;
+    margin:20px 0;
+    padding-bottom:10px;
+    border-bottom:1px solid rgba(255,255,255,0.15);
+    width:220px;
+    text-align:center;
+    transition:0.3s;
+}
+
+.overlay a:hover{
+    color:#4da6ff;
+}
+
+.close-btn{
+    position:absolute;
+    top:25px;
+    right:35px;
+    font-size:34px;
+    cursor:pointer;
+}
+
+/* HERO */
+.hero{
+    height:55vh;
+    background:url('assets/rules.jpg') center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8));
+}
+
+.hero-content{
+    position:relative;
+    z-index:2;
+    animation:fadeUp 1s ease forwards;
+}
+
+.hero h1{
+    font-size:36px;
+    color:#7db8ff;
+}
+
+.hero p{
+    margin-top:8px;
+    font-size:14px;
+    opacity:0.85;
+}
+
+/* TEAM SECTION */
+.team{
+    padding:90px 20px;
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:30px;
+}
+
+.member{
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(10px);
+    border-radius:18px;
+    text-align:center;
+    padding:30px 25px;
+    border:1px solid rgba(125,184,255,0.15);
+    transition:0.4s;
+    opacity:0;
+    transform:translateY(30px);
+    animation:fadeUp 0.8s ease forwards;
+}
+
+.member:nth-child(2){animation-delay:0.2s;}
+.member:nth-child(3){animation-delay:0.4s;}
+
+.member:hover{
+    transform:translateY(-10px);
+    border-color:#4da6ff;
+    box-shadow:0 0 30px rgba(77,166,255,0.35);
+}
+
+.member img{
+    width:115px;
+    height:115px;
+    border-radius:50%;
+    object-fit:cover;
+    margin-bottom:18px;
+    border:2px solid #4da6ff;
+}
+
+.member h3{
+    font-size:19px;
+}
+
+.role{
+    font-size:13px;
+    color:#7db8ff;
+    margin:6px 0 15px 0;
+    letter-spacing:1px;
+}
+
+/* SOCIAL */
+.socials{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+}
+
+.socials a{
+    text-decoration:none;
+    padding:8px 14px;
+    font-size:12px;
+    border-radius:20px;
+    background:rgba(125,184,255,0.1);
+    color:#7db8ff;
+    border:1px solid rgba(125,184,255,0.3);
+    transition:0.3s;
+}
+
+.socials a:hover{
+    background:#4da6ff;
+    color:black;
+    box-shadow:0 0 15px rgba(77,166,255,0.6);
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:35px 0;
+    font-size:13px;
+    opacity:0.6;
+}
+
+/* ANIMATION */
+@keyframes fadeUp{
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+/* LOADER */
+#loader{
+    position:fixed;
+    width:100%;
+    height:100vh;
+    background:linear-gradient(135deg,#050b16,#0a1f3d,#071427);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+    transition:opacity 0.6s ease, visibility 0.6s;
+}
+
+#loader.hidden{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-content{
+    text-align:center;
+    color:white;
+}
+
+.loader-logo{
+    font-size:32px;
+    letter-spacing:2px;
+    color:#7db8ff;
+    margin-bottom:20px;
+    text-shadow:0 0 20px rgba(77,166,255,0.7);
+}
+
+/* SPINNER */
+.spinner{
+    width:50px;
+    height:50px;
+    border:4px solid rgba(125,184,255,0.2);
+    border-top:4px solid #4da6ff;
+    border-radius:50%;
+    margin:0 auto 25px auto;
+    animation:spin 1s linear infinite;
+}
+
+@keyframes spin{
+    100%{ transform:rotate(360deg); }
+}
+
+/* LOADING BAR */
+.loading-bar{
+    width:220px;
+    height:6px;
+    background:rgba(255,255,255,0.1);
+    border-radius:10px;
+    overflow:hidden;
+    margin:0 auto 12px auto;
+}
+
+.loading-progress{
+    width:0%;
+    height:100%;
+    background:#4da6ff;
+    animation:loadBar 2.5s ease forwards;
+}
+
+@keyframes loadBar{
+    to{ width:100%; }
+}
+
+.loading-text{
+    font-size:13px;
+    opacity:0.7;
+}
+
+</style>
+</head>
+<body>
+  <!-- LOADING SCREEN -->
+<div id="loader">
+    <div class="loader-content">
+        <h1 class="loader-logo">YudaSense</h1>
+        <div class="spinner"></div>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+        <p class="loading-text">Loading...</p>
+    </div>
+</div>
+
+<div class="navbar">
+    <div class="logo">YudaSense</div>
+    <div class="menu-btn" onclick="openMenu()">☰</div>
+</div>
+
+<div class="overlay" id="menu">
+    <div class="close-btn" onclick="closeMenu()">✕</div>
+    <a href="index.html">🏠 Home</a>
+    <a href="servers.html">🎮 Server List</a>
+    <a href="rules.html">📜 Rules</a>
+    <a href="faq.html">💬 FAQ</a>
+    <a href="team.html">👥 Team</a>
+</div>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>Meet Our Team</h1>
+        <p> YudaDep - Teammm</p>
+    </div>
+</section>
+
+<section class="team">
+
+    <div class="member">
+        <img src="assets/yuda.jpg">
+        <h3>YudaDepp</h3>
+        <div class="role">Web Owner</div>
+        <div class="socials">
+            <a href="https://discord.gg/mEbMYDV2s">Discord</a>
+            <a href="https://wa.me/6285124942860">whatsaap</a></a>
+            <a href="">Telegram</a>
+        </div>
+    </div>
+
+    <div class="member">
+        <img src="assets/hah.jpg">
+        <h3>???</h3>
+        <div class="role">Lead Developer</div>
+        <div class="socials">
+            <a href="#">Discord</a>
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+        </div>
+    </div>
+
+    <div class="member">
+        <img src="assets/hah.jpg">
+        <h3>???</h3>
+        <div class="role">Moderator</div>
+        <div class="socials">
+            <a href="#">Discord</a>
+            <a href="#">Instagram</a>
+            <a href="#">YouTube</a>
+        </div>
+    </div>
+
+</section>
+
+<footer>
+</footer>
+
+<script>
+function openMenu(){
+    document.getElementById("menu").classList.add("active");
+}
+
+function closeMenu(){
+    document.getElementById("menu").classList.remove("active");
+}
+
+window.addEventListener("load", function(){
+    setTimeout(function(){
+        document.getElementById("loader").classList.add("hidden");
+    }, 2500); // waktu loading (bisa diubah)
+});
+
+</script>
+
+</body>
+</html>

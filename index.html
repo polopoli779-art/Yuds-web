@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YudaSense</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+html, body{
+height:100%;
+overflow-x:hidden;
+font-family:'Poppins',sans-serif;
+color:white;
+background:#050c18;
+}
+
+nav{
+position:fixed;
+top:0;
+width:100%;
+padding:20px 40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+z-index:1000;
+background:rgba(0,0,0,0.3);
+backdrop-filter:blur(10px);
+}
+
+.logo{
+font-size:16px;
+font-weight:600;
+letter-spacing:1px;
+margin-left:-10px;
+background:linear-gradient(45deg,#5fd0ff,#2a7bff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.menu-btn{
+font-size:24px;
+cursor:pointer;
+color:#7fd8ff;
+}
+
+.hero{
+height:100vh;
+background:url('assets/back.jpg') center/cover no-repeat;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+position:relative;
+overflow:hidden;
+}
+
+.hero::before{
+content:'';
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.78);
+}
+
+.hero-content{
+position:relative;
+z-index:2;
+max-width:600px;
+animation:fadeUp 1.2s ease;
+}
+
+.hero h1{
+font-size:36px;
+font-weight:600;
+margin-bottom:15px;
+background:linear-gradient(45deg,#ffffff,#7fd8ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+.hero p{
+font-size:15px;
+opacity:0.75;
+margin-bottom:30px;
+color:#cfe9ff;
+line-height:1.6;
+}
+
+.hero button{
+padding:12px 28px;
+border:none;
+border-radius:30px;
+background:linear-gradient(45deg,#0072ff,#00c6ff);
+color:white;
+font-size:14px;
+cursor:pointer;
+transition:0.3s ease;
+box-shadow:0 10px 30px rgba(0,100,255,0.4);
+}
+
+.hero button:hover{
+transform:translateY(-3px);
+box-shadow:0 15px 40px rgba(0,120,255,0.6);
+}
+
+.particle{
+position:fixed;
+width:3px;
+height:3px;
+background:#7fd8ff;
+border-radius:50%;
+opacity:0.7;
+pointer-events:none;
+animation:float linear infinite;
+}
+
+@keyframes float{
+from{ transform:translateY(100vh); }
+to{ transform:translateY(-10vh); }
+}
+
+.full-menu{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.94);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:30px;
+font-size:22px;
+opacity:0;
+visibility:hidden;
+transition:0.4s ease;
+z-index:2000;
+}
+
+.full-menu.active{
+opacity:1;
+visibility:visible;
+}
+
+.full-menu a{
+color:white;
+text-decoration:none;
+display:flex;
+align-items:center;
+gap:15px;
+transition:0.3s;
+}
+
+.full-menu a:hover{
+color:#5fd0ff;
+transform:scale(1.05);
+}
+
+.close-btn{
+position:absolute;
+top:25px;
+right:35px;
+font-size:26px;
+cursor:pointer;
+color:white;
+}
+
+@keyframes fadeUp{
+from{
+opacity:0;
+transform:translateY(30px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+</style>
+</head>
+<body>
+
+<nav>
+<div class="logo">YudaSense</div>
+<div class="menu-btn" onclick="openMenu()">☰</div>
+</nav>
+
+<section class="hero">
+<div class="hero-content">
+<h1>•YudaaaDepp•</h1>
+<p> • Tempatt nyaa Serverr Yangg YudaaaDepp •     • Kerjain Untuk di perbagus :v dll •</p>
+<button onclick="openMenu()">Open Menu</button>
+</div>
+</section>
+
+<div class="full-menu" id="menu">
+<div class="close-btn" onclick="closeMenu()">✕</div>
+
+<a href="index.html">🏠 Home</a>
+<a href="servers.html">🎮 Server List</a>
+<a href="rules.html">📜 Rules</a>
+<a href="faq.html">💬 FAQ</a>
+<a href="team.html">👥 Team</a>
+
+</div>
+
+<script>
+
+function openMenu(){
+document.getElementById("menu").classList.add("active");
+}
+
+function closeMenu(){
+document.getElementById("menu").classList.remove("active");
+}
+
+for(let i=0;i<60;i++){
+let p=document.createElement("div");
+p.classList.add("particle");
+p.style.left=Math.random()*100+"vw";
+p.style.animationDuration=(15+Math.random()*20)+"s";
+p.style.opacity=Math.random();
+document.body.appendChild(p);
+}
+
+</script>
+
+</body>
+</html>
